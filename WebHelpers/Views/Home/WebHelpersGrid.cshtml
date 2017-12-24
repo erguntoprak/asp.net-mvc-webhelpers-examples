@@ -1,0 +1,99 @@
+﻿@model List<WebHelpers.Models.Ogrenci>
+@using System.Web.Helpers
+@{
+    ViewBag.Title = "WebHelpersGrid";
+}
+<style type="text/css">
+    #gridTable {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #gridTable td, #gridTable th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #gridTable tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #gridTable tr:hover {
+            background-color: #ddd;
+        }
+
+        #gridTable th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+        #gridTable thead tr th a {
+            text-decoration:none;
+            color:white;
+
+        }
+        #gridTable thead tr th a:hover {
+                color: #5F5F5F;
+        }
+        #gridTable thead tr th a:hover {
+                color: #5F5F5F;
+        }
+        #gridTable tfoot tr td{
+            text-align:center;
+        }
+        #gridTable tfoot tr td a {
+            text-decoration: none;
+            font-size: 14px;
+            color: #5F5F5F;
+
+        }
+
+
+</style>
+<h2>WebHelpersGrid</h2>
+@{
+    WebGrid webGrid = new WebGrid(
+        source: Model,
+        columnNames: new[] { "Id", "Adi", "Bolum", "Fakulte", "Sinif", "Numara", "TC" },
+        rowsPerPage:10,
+        defaultSort:"Adi",
+        canPage:true,
+        canSort:true,
+        //Linklerde gözükecek nameleri yazıyoruz ajax kullandığımızda tabi bunlara gerek kalmıcak.
+        pageFieldName:"sayfa",
+        sortFieldName:"sirali",
+        sortDirectionFieldName:"yon",
+        //Ajax bu kadar basit bir sekilde kullanımı id parametresini veriyoruz
+        ajaxUpdateContainerId:"gridTable"
+        //Tamamlandıktan sonra hangi fonksiyonlar calıscak onu belirliyorlar ajaxUpdateCallback
+        );
+}
+<div class="row">
+    <div class="col-md-12">
+        @webGrid.GetHtml(
+       caption:"Öğrenci",
+       displayHeader:true,
+       fillEmptyRows:false,
+       mode:WebGridPagerModes.All,
+       numericLinksCount:4,
+       firstText:"[İlk]",
+       lastText:"[Son]",
+       nextText:">>",
+       previousText:"<<",
+       htmlAttributes: new {id="gridTable"},
+       columns: new[]
+       {
+           webGrid.Column("Adi","Adı"),
+           webGrid.Column("Bolum","Bölüm"),
+           webGrid.Column("Fakulte","Fakülte"),
+           webGrid.Column("Sinif","Sınıf"),
+           webGrid.Column("Numara","Okul Numarası")
+       }
+
+       )
+
+    </div>
+</div>

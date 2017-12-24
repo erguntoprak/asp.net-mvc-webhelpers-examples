@@ -1,0 +1,18 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "Home Page";
+}
+<ul class="list-group">
+    @foreach (string item in Model)
+    {
+        <li class="list-group-item">@item</li>
+    }
+</ul>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <input type="text" name="id" />
+    <button class="btn btn-danger" type="submit">Sil</button>
+}
+

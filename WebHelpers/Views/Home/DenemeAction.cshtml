@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "DenemeAction";
+}
+
+<h2>DenemeAction</h2>
+
+@using (Html.BeginForm("Index","Home",FormMethod.Post))
+{
+    <input type="text" name="id" />
+    <button class="btn btn-danger" type="submit">Sil</button>
+}
